@@ -1,0 +1,40 @@
+{
+  "name": "playwright-ts",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "npm run clean && tsc -p tsconfig.json",
+    "dev": "tsx playground/index.ts",
+    "P0": "npx playwright test tests/P0.spec.ts --headed",
+    "P1": "npx playwright test tests/P1.spec.ts --headed",
+    "P2": "npx playwright test tests/P2.spec.ts --headed",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "lint:ci": "eslint . --max-warnings=0",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check",
+    "validate": "npm run format:check && npm run lint:ci && npm run typecheck"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "@playwright/test": "^1.56.1",
+    "@types/node": "^24.10.1",
+    "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^16.5.0",
+    "prettier": "^3.6.2",
+    "rimraf": "^6.1.0",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.46.4"
+  }
+}

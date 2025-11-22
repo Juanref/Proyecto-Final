@@ -1,0 +1,16 @@
+#generales
+node_modules/
+dist/
+
+#reportes
+coverage/
+test-result/
+artifacts/
+
+# Playwright
+/test-results/
+/playwright-report/
+/playwright-result/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
