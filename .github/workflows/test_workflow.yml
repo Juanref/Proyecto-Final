@@ -35,7 +35,7 @@ jobs:
 
       # Ejecuta solo 1 test, 1 proyecto y sin reporte HTML
       - name: Run a single smoke test (Chromium only)
-        run: npx playwright test tests/web/P0.spec.ts --project=chromium --reporter=list
+        run: npx playwright test tests/web/P0.spec.ts
 
       # Sube el reporte HTML si lo generaste en otra corrida o si más adelante decides habilitarlo
       - name: Upload artifacts (reports, screenshots)
