@@ -1,0 +1,1142 @@
+{
+	"info": {
+		"_postman_id": "1ca9801a-2ae9-482e-a084-b79f950d6783",
+		"name": "API-Automation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "47167584",
+		"_collection_link": "https://aerospace-observer-9501711-6934608.postman.co/workspace/ProyectoFinal~4c4cbc5a-607b-4956-ad4c-f6e151aa7ce3/collection/47167584-1ca9801a-2ae9-482e-a084-b79f950d6783?action=share&source=collection_link&creator=47167584"
+	},
+	"item": [
+		{
+			"name": "P0 — API",
+			"item": [
+				{
+					"name": "POST createAccountValid",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Business responseCode is 201\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.responseCode).to.eql(201);",
+									"});",
+									"",
+									"pm.test('User created', function () {",
+									"    var json = pm.response.json();",
+									"    pm.expect(json.message).to.eql('User created!');",
+									"",
+									"    pm.environment.set('createdUserEmail', pm.variables.get('emailDynamic'));",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Generar timestamp actual\r",
+									"const ts = Date.now();\r",
+									"pm.environment.set(\"timestamp\", ts);\r",
+									"\r",
+									"// Generar nombre y email dinámico con el timestamp\r",
+									"pm.environment.set(\"nameDynamic\", `jescobedof_${ts}`);\r",
+									"pm.environment.set(\"emailDynamic\", `jescobedof_${ts}@pw.local`);"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "{{nameDynamic}}",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "{{emailDynamic}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "Mr",
+									"type": "text"
+								},
+								{
+									"key": "birth_date",
+									"value": "13",
+									"type": "text"
+								},
+								{
+									"key": "birth_month",
+									"value": "11",
+									"type": "text"
+								},
+								{
+									"key": "birth_year",
+									"value": "1992",
+									"type": "text"
+								},
+								{
+									"key": "firstname",
+									"value": "{{nameDynamic}}",
+									"type": "text"
+								},
+								{
+									"key": "lastname",
+									"value": "N.A.",
+									"type": "text"
+								},
+								{
+									"key": "company",
+									"value": "N.A.",
+									"type": "text"
+								},
+								{
+									"key": "address1",
+									"value": "N.A.",
+									"type": "text"
+								},
+								{
+									"key": "address2",
+									"value": "N.A.",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "United States",
+									"type": "text"
+								},
+								{
+									"key": "zipcode",
+									"value": "N.A.",
+									"type": "text"
+								},
+								{
+									"key": "state",
+									"value": "QC",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "N.A.",
+									"type": "text"
+								},
+								{
+									"key": "mobile_number",
+									"value": "987456234",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/createAccount",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"createAccount"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST verifyLoginValid",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Business responseCode is 200\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.responseCode).to.eql(200);",
+									"});",
+									"",
+									"pm.test('Login successful', function () {",
+									"    var json = pm.response.json();",
+									"    pm.expect(json.message).to.eql('User exists!');",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "{{createdUserEmail}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/verifyLogin",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"verifyLogin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET userDetailValid",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Business responseCode is 200\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.responseCode).to.eql(200);",
+									"});",
+									"",
+									"pm.test('User detail exists', function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.user).to.have.property('email', pm.environment.get('createdUserEmail'));",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/getUserDetailByEmail?email={{createdUserEmail}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"getUserDetailByEmail"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "{{createdUserEmail}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE validAccount",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Business responseCode is 200\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.responseCode).to.eql(200);",
+									"});",
+									"",
+									"pm.test('Account deleted', function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.message).to.eql('Account deleted!');",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "{{createdUserEmail}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/deleteAccount",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"deleteAccount"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET products → 200",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Business responseCode is 200\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.responseCode).to.eql(200);",
+									"});",
+									"",
+									"pm.test('Response has products array', function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.products).to.be.an('array');",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/productsList",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"productsList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST searchValidProduct",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Business responseCode is 200\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.responseCode).to.eql(200);",
+									"});",
+									"",
+									"pm.test('Results array exists', function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.products).to.be.an('array');",
+									"});",
+									"",
+									"pm.test(\"Save product ID\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    var secondProductId = jsonData.products[1].id;",
+									"    pm.environment.set(\"productId\", secondProductId);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "search_product",
+									"value": "Jean",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/searchProduct",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"searchProduct"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET addProductToCart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Added To Cart\", function () {\r",
+									"    var responseText = pm.response.text();\r",
+									"    pm.expect(responseText).to.eql(\"Added To Cart\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/add_to_cart/{{productId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"add_to_cart",
+								"{{productId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Tests críticos del flujo principal: GET productos, POST createAccount/login, DELETE account, GET user detail"
+		},
+		{
+			"name": "P1 — API",
+			"item": [
+				{
+					"name": "POST productosList → 405",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Business responseCode is 405\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.responseCode).to.eql(405);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/productsList",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"productsList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET brandsList → 200",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Business responseCode is 200\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.responseCode).to.eql(200);",
+									"});",
+									"",
+									"pm.test('Response has brands array', function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.brands).to.be.an('array');",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/brandsList",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"brandsList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT brandsList → 405",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Business responseCode is 405\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.responseCode).to.eql(405);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/brandsList",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"brandsList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST createAccountMissingFields",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Business responseCode is 400\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.responseCode).to.eql(400);",
+									"});",
+									"",
+									"pm.test('Message indicates missing parameters', function () {",
+									"    var json = pm.response.json();",
+									"    pm.expect(json.message).to.include('missing');",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "{{nameDynamic}}",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "{{emailDynamic}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/createAccount",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"createAccount"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST verifyLoginInvalidCredencials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Business responseCode is 404\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.responseCode).to.eql(404);",
+									"});",
+									"",
+									"pm.test('Login invalid credencials', function () {",
+									"    var json = pm.response.json();",
+									"    pm.expect(json.message).to.eql('User not found!');",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "{{emailDynamic}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456789",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/verifyLogin",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"verifyLogin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST verifyLoginWithouyEmail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Business responseCode is 400\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.responseCode).to.eql(400);",
+									"});",
+									"",
+									"pm.test('Login missing email', function () {",
+									"    var json = pm.response.json();",
+									"    pm.expect(json.message).to.include('missing');",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/verifyLogin",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"verifyLogin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE verifyLogin → 405",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Business responseCode is 405\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.responseCode).to.eql(405);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/verifyLogin",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"verifyLogin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE accountWithWrongCredencials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Business responseCode is 404\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.responseCode).to.eql(404);",
+									"});",
+									"",
+									"pm.test('Delete with wrong credencials', function () {",
+									"    var json = pm.response.json();",
+									"    pm.expect(json.message).to.eql('Account not found!');",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "{{emailDynamic}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456789",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/deleteAccount",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"deleteAccount"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET emailNotExists",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Business responseCode is 404\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.responseCode).to.eql(404);",
+									"});",
+									"",
+									"pm.test('Account not exists with email', function () {",
+									"    var json = pm.response.json();",
+									"    pm.expect(json.message).to.include('not found');",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/getUserDetailByEmail?email={{createdUserEmail}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"getUserDetailByEmail"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "{{createdUserEmail}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "P2 — API",
+			"item": [
+				{
+					"name": "POST searchProduct → 405",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Business responseCode is 405\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.responseCode).to.eql(405);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "search_product",
+									"value": "Tops",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/searchProduct",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"searchProduct"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT updateAccountUserNotExists → 404",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Business responseCode is 404\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.responseCode).to.eql(404);",
+									"});",
+									"",
+									"pm.test('User not exists for update', function () {",
+									"    var json = pm.response.json();",
+									"    pm.expect(json.message).to.eql('Account not found!');",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "{{nameDynamic}}",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "{{createdUserEmail}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "Mr",
+									"type": "text"
+								},
+								{
+									"key": "birth_date",
+									"value": "13",
+									"type": "text"
+								},
+								{
+									"key": "birth_month",
+									"value": "11",
+									"type": "text"
+								},
+								{
+									"key": "birth_year",
+									"value": "1992",
+									"type": "text"
+								},
+								{
+									"key": "firstname",
+									"value": "Juan",
+									"type": "text"
+								},
+								{
+									"key": "lastname",
+									"value": "N.A.",
+									"type": "text"
+								},
+								{
+									"key": "company",
+									"value": "N.A.",
+									"type": "text"
+								},
+								{
+									"key": "address1",
+									"value": "N.A.",
+									"type": "text"
+								},
+								{
+									"key": "address2",
+									"value": "N.A.",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "United States",
+									"type": "text"
+								},
+								{
+									"key": "zipcode",
+									"value": "N.A.",
+									"type": "text"
+								},
+								{
+									"key": "state",
+									"value": "QC",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "N.A.",
+									"type": "text"
+								},
+								{
+									"key": "mobile_number",
+									"value": "987456234",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/updateAccount",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"updateAccount"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST createAccountEmptyBody → 400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Business responseCode is 400\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.responseCode).to.eql(400);",
+									"});",
+									"",
+									"",
+									"pm.test('Message indicates missing parameters', function () {",
+									"    var json = pm.response.json();",
+									"    pm.expect(json.message).to.include('missing');",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/createAccount",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"createAccount"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

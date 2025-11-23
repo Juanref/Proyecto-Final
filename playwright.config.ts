@@ -1,4 +1,4 @@
-import { defineConfig, devices } from '@playwright/test';
+import { defineConfig, devices } from "@playwright/test";
 import { DateFormatter } from "./helpers/utils/time.helper.ts";
 
 /**
@@ -13,75 +13,41 @@ import { DateFormatter } from "./helpers/utils/time.helper.ts";
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  testDir: './tests',
-  /* Run tests in files in parallel */
+  testDir: "./tests",
   fullyParallel: true,
-  /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
-  /* Retry on CI only */
-  retries: process.env.CI ? 0 : 1,
-  /* Opt out of parallel tests on CI. */
+  retries: process.env.CI ? 2 : 1,
   workers: process.env.CI ? 1 : 1,
-  /* Reporter to use. See https://playwright.dev/docs/test-reporters */
+
   reporter: [
     ["list", { printSteps: true }],
-    ["html", { open: "never", outputFolder: `playwright-report/result-${DateFormatter(new Date)}` }],
-    ["json", { outputFile: `playwright-result/result-${DateFormatter(new Date)}.json` }],
+    // [
+    //   "html",
+    //   { open: "never", outputFolder: `playwright-report/result-${DateFormatter(new Date())}` },
+    // ],
+    // ["json", { outputFile: `playwright-result/result-${DateFormatter(new Date())}.json` }],
+    ["allure-playwright"],
   ],
-  outputDir: 'artifacts/run',
-  /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
+
+  outputDir: "artifacts/run",
+
   use: {
-    /* Base URL to use in actions like `await page.goto('')`. */
-    // baseURL: 'http://localhost:3000',
-
     launchOptions: {
-      slowMo: 700
+      slowMo: 700,
     },
-
-    /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "on-first-retry",
     screenshot: "only-on-failure",
     video: "retain-on-failure",
   },
 
-  /* Configure projects for major browsers */
   projects: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      name: "WEB-Automation",
+      use: { ...devices["Desktop Chrome"] },
     },
-    // {
-    //   name: 'firefox',
-    //   use: { ...devices['Desktop Firefox'] },
-    // },
-
-    // {
-    //   name: 'webkit',
-    //   use: { ...devices['Desktop Safari'] },
-    // },
-
-    /* Test against mobile viewports. */
-    // {
-    //   name: 'Mobile Chrome',
-    //   use: { ...devices['Pixel 5'] },
-    // },
-    // {
-    //   name: 'Mobile Safari',
-    //   use: { ...devices['iPhone 12'] },
-    // },
-
-    /* Test against branded browsers. */
-    // {
-    //   name: 'Microsoft Edge',
-    //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
-    // },
-    // {
-    //   name: 'Google Chrome',
-    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
-    // },
+    // Otros browsers comentados
   ],
 
-  /* Run your local dev server before starting the tests */
   // webServer: {
   //   command: 'npm run start',
   //   url: 'http://localhost:3000',

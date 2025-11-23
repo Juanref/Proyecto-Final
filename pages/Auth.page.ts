@@ -80,7 +80,7 @@ export class AuthPage {
   /**
    * Completa el formulario de creación de cuenta y confirma el registro.
    */
-  async completeAccountForm(u: AEUser): Promise<void> {
+  async completeAccountForm(u: AEUser): Promise<string> {
     await waitVisible(this.page, this.password);
 
     await this.password.fill(u.password);
@@ -95,9 +95,14 @@ export class AuthPage {
 
     await this.createAccountBtn.click();
 
-    await waitVisible(this.page, this.accountCreatedTitle);
+    const messageElement = this.accountCreatedTitle;
+    await messageElement.waitFor({ state: 'visible' });
+    const messageSuccess = await messageElement.textContent();
+    
     await this.continueButton.click();
     await waitPageStable(this.page);
+
+    return messageSuccess?.trim() || '';
   }
 
   /**
@@ -114,16 +119,24 @@ export class AuthPage {
   /**
    * Verifica que el login falle mostrando el mensaje de error.
    */
-  async assertFailLogin(): Promise<void> {
-    await expect(this.loginError).toBeVisible();
+  async assertFailLogin(): Promise<string> {
+    const messageElement = this.loginError;
+    await messageElement.waitFor({ state: 'visible' });
     await expect(this.loginError).toContainText(/incorrect/i);
+    const failedLogIn = await messageElement.textContent();
+
+    return failedLogIn?.trim() || '';
   }
 
   /**
    * Verifica que el registro falle mostrando el mensaje de error.
    */
-  async assertFailRegister(): Promise<void> {
-    await expect(this.registerError).toBeVisible();
+  async assertFailRegister(): Promise<string> {
+    const messageElement = this.registerError;
+    await messageElement.waitFor({ state: 'visible' });
     await expect(this.registerError).toContainText(/already/i);
+    const failedRegister = await messageElement.textContent();
+
+    return failedRegister?.trim() || '';
   }
 }

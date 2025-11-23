@@ -38,11 +38,13 @@ export class CheckoutPage {
   /**
    * Valida que el carrito tenga la cantidad exacta de productos esperada.
    */
-  async validateCartItemCount(expectedCount: number): Promise<void> {
+  async validateCartItemCount(expectedCount: number): Promise<number> {
     const count = await this.cartItems.count();
     if (count !== expectedCount) {
       throw new Error(`Se esperaban ${expectedCount} items, pero hay ${count}.`);
     }
+
+    return count;
   }
 
   /**
@@ -58,7 +60,7 @@ export class CheckoutPage {
   /**
    * Completa el formulario de pago y finaliza la compra.
    */
-  async fillPaymentAndFinish(): Promise<void> {
+  async fillPaymentAndFinish(): Promise<string> {
     await this.placeOrderButton.click();
 
     await this.nameInput.fill("Juan Escobedo");
@@ -68,9 +70,16 @@ export class CheckoutPage {
     await this.expiryYearInput.fill("2030");
 
     await this.payAndConfirmButton.click();
+
     await waitVisible(this.page, this.checkoutTitle);
+
+    const messageElement = this.checkoutTitle;
+    await messageElement.waitFor({ state: 'visible' });
+    const checkoutSuccess = await messageElement.textContent();
 
     await this.continueButton.click();
     await waitPageStable(this.page);
+
+    return checkoutSuccess?.trim() || '';
   }
 }

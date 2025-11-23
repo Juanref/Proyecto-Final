@@ -56,7 +56,7 @@ export class CartPage {
   /**
    * Agrega uno o varios productos al carrito según sus índices.
    */
-  async addProductByIndex(...indexes: number[]): Promise<void> {
+  async addProductByIndex(...indexes: number[]): Promise<number> {
     await this.productsMenu.click();
 
     for (let pos = 0; pos < indexes.length; pos++) {
@@ -83,20 +83,24 @@ export class CartPage {
 
       await waitPageStable(this.page);
     }
+
+    return indexes.length;
   }
 
   /**
    * Valida que el carrito tenga la cantidad de filas esperada.
    */
-  async validateCartItems(count: number): Promise<void> {
+  async validateCartItems(count: number): Promise<number> {
     await this.cartMenu.click();
     await expect(this.cartRows).toHaveCount(count);
+
+    return count;
   }
 
   /**
    * Valida que el total de un ítem sea unitPrice * quantity.
    */
-  async validateTotal(index = 0): Promise<void> {
+  async validateTotal(index = 0): Promise<{ unit: number; qty: number; total: number }> {
     await this.cartMenu.click();
 
     const rawUnit = await this.unitPrices.nth(index).innerText();
@@ -108,6 +112,8 @@ export class CartPage {
     const total = Number(rawTotal.match(/\d+/)?.[0] ?? 0);
 
     expect(total, `ERROR: total (${total}) ≠ unit (${unit}) * qty (${qty})`).toBe(unit * qty);
+
+    return { unit, qty, total };
   }
 
   /**
@@ -150,8 +156,9 @@ export class CartPage {
 
   /**
    * Elimina uno o varios ítems del carrito por índice.
+   * Retornamos un objeto con eliminados y cantidad restante
    */
-  async deleteProductInCart(...indices: number[]): Promise<void> {
+  async deleteProductInCart(...indices: number[]): Promise<{ deleted: number; remaining: number }> {
     const sortedIndices = [...indices].sort((a, b) => b - a);
 
     for (const index of sortedIndices) {
@@ -160,5 +167,9 @@ export class CartPage {
       await btn.click();
       await this.page.waitForTimeout(300);
     }
+
+    const remaining = await this.cartRows.count();
+
+    return { deleted: indices.length, remaining };
   }
 }

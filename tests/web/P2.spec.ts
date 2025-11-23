@@ -1,12 +1,12 @@
 import { expect, test } from "@playwright/test";
-import { Logger } from "../helpers/utils/log.helper";
 import path from "path";
-import { HomePage } from "../pages/Home.page";
-import { blockAds } from "../helpers/utils/adsBlocker";
-import { AEUser, getAuth } from "../helpers/utils/user.helper";
-import { getSavedUser } from "../helpers/utils/session.helper";
-import { ProductDetailPage } from "../pages/ProductDetail.page";
-import { ContactUsPage } from "../pages/ContactUs.page";
+import { blockAds } from "../../helpers/utils/adsBlocker";
+import { Logger } from "../../helpers/utils/log.helper";
+import { getSavedUser } from "../../helpers/utils/session.helper";
+import { AEUser, getAuth } from "../../helpers/utils/user.helper";
+import { ContactUsPage } from "../../pages/ContactUs.page";
+import { HomePage } from "../../pages/Home.page";
+import { ProductDetailPage } from "../../pages/ProductDetail.page";
 
 /**
  * Suite P2 — Pruebas de prioridad baja:
@@ -59,8 +59,9 @@ test.describe.serial("Suite P2", () => {
       await product.openProductByIndex(1);
     });
 
-    await test.step("Llenar formulario de review", async () => {
-      await product.submitReview(creds.name, creds.email);
+    await test.step("Llenar y enviar formulario de review", async () => {
+      const reviewMessage = await product.submitReview(creds.name, creds.email);
+      Logger.info(`${reviewMessage}`);
     });
   });
 
@@ -79,8 +80,9 @@ test.describe.serial("Suite P2", () => {
       await home.gotoContactUs();
     });
 
-    await test.step("Llenar formulario y enviarlo", async () => {
-      await contact.submitContact(creds.name, creds.email);
+    await test.step("Llenar y enviar formulario", async () => {
+      const contactMessage = await contact.submitContact(creds.name, creds.email);
+      Logger.info(`${contactMessage}`);
     });
   });
 });

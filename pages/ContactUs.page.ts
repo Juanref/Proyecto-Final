@@ -60,9 +60,14 @@ export class ContactUsPage {
 
     await waitPageStable(this.page);
 
-    await this.successMessage.waitFor({ state: "visible" });
+    const messageElement = this.successMessage;
+    await messageElement.waitFor({ state: 'visible' });
+    const reviewMessage = await messageElement.textContent();
+
     await waitVisible(this.page, this.homeButton);
     await this.homeButton.click();
     await waitPageStable(this.page);
+
+    return reviewMessage?.trim() || '';
   }
 }

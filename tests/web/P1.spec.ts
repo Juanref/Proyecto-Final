@@ -1,14 +1,14 @@
 import { expect, test } from "@playwright/test";
-import { Logger } from "../helpers/utils/log.helper";
 import path from "path";
-import { HomePage } from "../pages/Home.page";
-import { blockAds } from "../helpers/utils/adsBlocker";
-import { getAuth, AEUser } from "../helpers/utils/user.helper";
-import { AuthPage } from "../pages/Auth.page";
-import { getSavedUser } from "../helpers/utils/session.helper";
-import { CartPage } from "../pages/Cart.page";
-import { ProductCard } from "../pages/ProductCard.page";
-import { ProductDetailPage } from "../pages/ProductDetail.page";
+import { blockAds } from "../../helpers/utils/adsBlocker";
+import { Logger } from "../../helpers/utils/log.helper";
+import { getSavedUser } from "../../helpers/utils/session.helper";
+import { AEUser, getAuth } from "../../helpers/utils/user.helper";
+import { AuthPage } from "../../pages/Auth.page";
+import { CartPage } from "../../pages/Cart.page";
+import { HomePage } from "../../pages/Home.page";
+import { ProductCard } from "../../pages/ProductCard.page";
+import { ProductDetailPage } from "../../pages/ProductDetail.page";
 
 /**
  * Suite P1 — Pruebas de prioridad media:
@@ -59,7 +59,8 @@ test.describe.serial("Suite P1", () => {
       });
 
       await test.step("Validar que el carrito tiene 1 producto", async () => {
-        await cart.validateCartItems(1);
+        const count = await cart.validateCartItems(1);
+        Logger.info(`Cantidad de productos encontrados: ${count}`);
       });
 
       await test.step("Entrar al detalle del producto", async () => {
@@ -80,7 +81,10 @@ test.describe.serial("Suite P1", () => {
       });
 
       await test.step("Validar que el total sea correcto", async () => {
-        await cart.validateTotal();
+        const { unit, qty, total } = await cart.validateTotal();
+        Logger.info(
+          `Valores del carrito -> Cantidad: ${qty}, Precio unitario: ${unit}, Total: ${total}`,
+        );
       });
     });
 
@@ -122,11 +126,14 @@ test.describe.serial("Suite P1", () => {
       });
 
       await test.step("Añadir producto por índice al carrito", async () => {
-        await cart.addProductByIndex(0, 1, 3, 4);
+        const items = await cart.addProductByIndex(0, 1, 3, 4);
+        Logger.info(`Cantidad de productos añadidos: ${items}`);
       });
 
       await test.step("Eliminar producto 1", async () => {
-        await cart.deleteProductInCart(1, 3);
+        const { deleted, remaining } = await cart.deleteProductInCart(1,3);
+        Logger.info(`Cantidad de productos eliminados: ${deleted}`);
+        Logger.info(`Cantidad de productos restantes en el carrito: ${remaining}`);
       });
     });
   });
@@ -150,7 +157,8 @@ test.describe.serial("Suite P1", () => {
     });
 
     await test.step("Validar mensaje de error", async () => {
-      await auth.assertFailLogin();
+      const failedLogIn = await auth.assertFailLogin();
+      Logger.info(`${failedLogIn}`);
     });
 
     await test.step("Registro con email existente", async () => {
@@ -158,7 +166,8 @@ test.describe.serial("Suite P1", () => {
     });
 
     await test.step("Validar mensaje de error", async () => {
-      await auth.assertFailRegister();
+      const failedRegister = await auth.assertFailRegister();
+      Logger.info(`${failedRegister}`);
     });
   });
 });

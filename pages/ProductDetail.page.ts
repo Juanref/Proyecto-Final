@@ -88,6 +88,10 @@ export class ProductDetailPage {
     await this.reviewTextarea.fill("Muy buen producto");
     await this.submitReviewButton.click();
 
-    await this.reviewSuccessMessage.waitFor({ state: "visible" });
+    const messageElement = this.reviewSuccessMessage;
+    await messageElement.waitFor({ state: 'visible' });
+    const reviewMessage = await messageElement.textContent();
+
+    return reviewMessage?.trim() || '';
   }
 }

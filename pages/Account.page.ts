@@ -20,8 +20,14 @@ export class AccountPage {
    * Verifica que el usuario esté autenticado mediante
    * la visibilidad del texto "Logged in as".
    */
-  async assertLoggedIn(): Promise<void> {
+  async assertLoggedIn(): Promise<string> {
     await waitVisible(this.page, this.loggedAs);
+
+    const messageElement = this.loggedAs;
+    await messageElement.waitFor({ state: 'visible' });
+    const userLogIn = await messageElement.textContent();
+
+    return userLogIn?.trim() || '';
   }
 
   /**

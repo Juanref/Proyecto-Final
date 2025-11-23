@@ -1,14 +1,14 @@
 import test, { expect } from "@playwright/test";
-import { Logger } from "../helpers/utils/log.helper";
 import path from "path";
-import { HomePage } from "../pages/Home.page";
-import { AuthPage } from "../pages/Auth.page";
-import { AccountPage } from "../pages/Account.page";
-import { saveSessionWithUser } from "../helpers/utils/session.helper";
-import { blockAds } from "../helpers/utils/adsBlocker";
-import { getAuth, makeUser, AEUser } from "../helpers/utils/user.helper";
-import { CartPage } from "../pages/Cart.page";
-import { CheckoutPage } from "../pages/Checkout.page";
+import { blockAds } from "../../helpers/utils/adsBlocker";
+import { Logger } from "../../helpers/utils/log.helper";
+import { saveSessionWithUser } from "../../helpers/utils/session.helper";
+import { AEUser, getAuth, makeUser } from "../../helpers/utils/user.helper";
+import { AccountPage } from "../../pages/Account.page";
+import { AuthPage } from "../../pages/Auth.page";
+import { CartPage } from "../../pages/Cart.page";
+import { CheckoutPage } from "../../pages/Checkout.page";
+import { HomePage } from "../../pages/Home.page";
 
 /**
  * Suite P0 — Pruebas críticas del flujo principal:
@@ -33,9 +33,8 @@ test.describe.serial("Suite P0", () => {
     await page.screenshot({ path: filePath });
   });
 
-  test("RF-01: Registro de usuario válido", async ({ page }) => {
-    const projectName = test.info().project.name;
-    Logger.debug("Dispositivo Actual: ", projectName);
+  test("RF-01: Registro de usuario válido", async ({ page, browserName }) => {
+    Logger.debug("Dispositivo Actual: ", browserName);
 
     const BASE_USERNAME = "jescobedof";
     user = makeUser(BASE_USERNAME);
@@ -54,7 +53,8 @@ test.describe.serial("Suite P0", () => {
     });
 
     await test.step("Completar formulario de registro y validar cuenta creada", async () => {
-      await auth.completeAccountForm(user);
+      const messageSuccess = await auth.completeAccountForm(user);
+      Logger.info(`${messageSuccess}`);
     });
 
     await test.step("Cerrar sesión", async () => {
@@ -62,9 +62,8 @@ test.describe.serial("Suite P0", () => {
     });
   });
 
-  test("RF-02: Login válido y persistencia", async ({ page }) => {
-    const projectName = test.info().project.name;
-    Logger.debug("Dispositivo Actual: ", projectName);
+  test("RF-02: Login válido y persistencia", async ({ page, browserName }) => {
+    Logger.debug("Dispositivo Actual: ", browserName);
 
     const creds = getAuth(user);
 
@@ -83,11 +82,13 @@ test.describe.serial("Suite P0", () => {
 
     await test.step("Verificar usuario logueado como Logged in as", async () => {
       await account.assertLoggedIn();
+      const userLogIn = await account.assertLoggedIn();
+      Logger.info(`${userLogIn}`);
     });
 
     await test.step("Guardar sesión persistente", async () => {
-      const sessionPath = path.join(process.cwd(), "auth", `${projectName}.session.json`);
-      const userPath = path.join(process.cwd(), "data", `${projectName}.user.json`);
+      const sessionPath = path.join(process.cwd(), "auth", `${browserName}.session.json`);
+      const userPath = path.join(process.cwd(), "data", `${browserName}.user.json`);
       await saveSessionWithUser(page, user, sessionPath, userPath);
     });
   });
@@ -115,7 +116,8 @@ test.describe.serial("Suite P0", () => {
       });
 
       await test.step("Validar que el carrito tiene 1 producto", async () => {
-        await cart.validateCartItems(1);
+        const count = await cart.validateCartItems(1);
+        Logger.info(`Cantidad de productos encontrados: ${count}`);
       });
     });
 
@@ -133,12 +135,14 @@ test.describe.serial("Suite P0", () => {
       });
 
       await test.step("Validar los item en carrito", async () => {
-        await checkout.validateCartItemCount(1);
+        const count = await checkout.validateCartItemCount(1);
+        Logger.info(`Cantidad de productos encontrados: ${count}`);
       });
 
       await test.step("Realizar el checkout", async () => {
         await checkout.proceedToCheckout();
-        await checkout.fillPaymentAndFinish();
+        const checkoutSuccess = await checkout.fillPaymentAndFinish();
+        Logger.info(`${checkoutSuccess}`);
       });
     });
   });
