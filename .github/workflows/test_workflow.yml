@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: ["alumno/jescobedof"] # solo pushes a main
+    branches: ["xplearn/jescobedof"] # solo pushes a main
   pull_request:
-    branches: ["alumno/jescobedof"] # solo PRs hacia main
+    branches: ["xplearn/jescobedof"] # solo PRs hacia main
 
 permissions:
   contents: read
