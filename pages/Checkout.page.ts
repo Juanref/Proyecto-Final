@@ -2,7 +2,7 @@ import { type Locator, type Page } from "@playwright/test";
 import { waitPageStable, waitVisible } from "../helpers/utils/wait.helper";
 
 /**
- * Página que gestiona el flujo completo de checkout,
+ * Página que gestiona el flujo completo de checkout.
  */
 export class CheckoutPage {
   readonly page: Page;
@@ -36,7 +36,7 @@ export class CheckoutPage {
   }
 
   /**
-   * Valida que el carrito contenga exactamente la cantidad esperada de productos.
+   * Valida que el carrito tenga la cantidad exacta de productos esperada.
    */
   async validateCartItemCount(expectedCount: number): Promise<void> {
     const count = await this.cartItems.count();
@@ -56,8 +56,7 @@ export class CheckoutPage {
   }
 
   /**
-   * Completa el formulario de pago con datos predefinidos
-   * y finaliza el flujo de compra.
+   * Completa el formulario de pago y finaliza la compra.
    */
   async fillPaymentAndFinish(): Promise<void> {
     await this.placeOrderButton.click();

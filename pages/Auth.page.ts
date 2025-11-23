@@ -3,7 +3,7 @@ import { waitPageStable, waitVisible } from "../helpers/utils/wait.helper";
 import { AEUser } from "../helpers/utils/user.helper";
 
 /**
- * Página de autenticación: login y registro.
+ * Página de autenticación: Registro y login.
  */
 export class AuthPage {
   readonly page: Page;
@@ -35,10 +35,6 @@ export class AuthPage {
   readonly loginButton: Locator;
   readonly loginError: Locator;
 
-  /**
-   * Inicializa la página de autenticación.
-   * @param page Instancia de Playwright Page.
-   */
   constructor(page: Page) {
     this.page = page;
 
@@ -71,15 +67,7 @@ export class AuthPage {
   }
 
   /**
-   * Inicia el flujo de registro completando nombre y correo inicial.
-   *
-   * @param name Nombre del usuario.
-   * @param email Correo electrónico del usuario.
-   * @returns Promesa que se resuelve cuando se avanza al formulario de registro.
-   *
-   * @example
-   * const auth = new AuthPage(page);
-   * await auth.startSignup("Juan", "juan@test.com");
+   * Inicia el flujo de registro completando nombre y correo.
    */
   async startSignup(name: string, email: string): Promise<void> {
     await waitVisible(this.page, this.signupName);
@@ -91,12 +79,6 @@ export class AuthPage {
 
   /**
    * Completa el formulario de creación de cuenta y confirma el registro.
-   *
-   * @param u Objeto {@link AEUser} con los datos completos del usuario.
-   * @returns Promesa que se resuelve cuando la cuenta queda creada.
-   *
-   * @example
-   * await authPage.completeAccountForm(user);
    */
   async completeAccountForm(u: AEUser): Promise<void> {
     await waitVisible(this.page, this.password);
@@ -120,13 +102,6 @@ export class AuthPage {
 
   /**
    * Realiza login en la plataforma.
-   *
-   * @param email Correo electrónico del usuario.
-   * @param password Contraseña del usuario.
-   * @returns Promesa que se resuelve cuando se procesa el login.
-   *
-   * @example
-   * await authPage.login("correo@test.com", "1234");
    */
   async login(email: string, password: string): Promise<void> {
     await waitVisible(this.page, this.loginEmail);
@@ -138,11 +113,6 @@ export class AuthPage {
 
   /**
    * Verifica que el login falle mostrando el mensaje de error.
-   *
-   * @returns Promesa que se resuelve tras validar el fallo del login.
-   *
-   * @example
-   * await authPage.assertFailLogin();
    */
   async assertFailLogin(): Promise<void> {
     await expect(this.loginError).toBeVisible();
@@ -150,17 +120,10 @@ export class AuthPage {
   }
 
   /**
-   * Verifica que el login falle mostrando el mensaje de error.
-   *
-   * @returns Promesa que se resuelve tras validar el fallo del login.
-   *
-   * @example
-   * await authPage.assertFailLogin();
+   * Verifica que el registro falle mostrando el mensaje de error.
    */
   async assertFailRegister(): Promise<void> {
     await expect(this.registerError).toBeVisible();
     await expect(this.registerError).toContainText(/already/i);
   }
-
-
 }

@@ -10,6 +10,10 @@ import { getAuth, makeUser, AEUser } from "../helpers/utils/user.helper";
 import { CartPage } from "../pages/Cart.page";
 import { CheckoutPage } from "../pages/Checkout.page";
 
+/**
+ * Suite P0 — Pruebas críticas del flujo principal:
+ * Registro, login, cart y checkout.
+ */
 test.describe.serial("Suite P0", () => {
   let user: AEUser;
 

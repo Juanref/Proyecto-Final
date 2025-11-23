@@ -1,3 +1,6 @@
+/**
+ * Representa un usuario utilizado para registro, login y tests que requieren autenticación.
+ */
 export type AEUser = {
   name: string;
   email: string;
@@ -15,6 +18,9 @@ export type AEUser = {
   mobileNumber: string;
 };
 
+/**
+ * Genera un usuario dinámico basado en un nombre y timestamp.
+ */
 export function makeUser(username: string): AEUser {
   const timestamp = Date.now();
   return {
@@ -35,9 +41,13 @@ export function makeUser(username: string): AEUser {
   };
 }
 
+/**
+ * Devuelve solo las credenciales necesarias para flujos de autenticación.
+ */
 export function getAuth(user: AEUser) {
   return {
     email: user.email,
     password: user.password,
+    name: user.name
   };
 }

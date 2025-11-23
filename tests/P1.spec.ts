@@ -10,6 +10,10 @@ import { CartPage } from "../pages/Cart.page";
 import { ProductCard } from "../pages/ProductCard.page";
 import { ProductDetailPage } from "../pages/ProductDetail.page";
 
+/**
+ * Suite P1 — Pruebas de prioridad media:
+ * modificaciones de carrito, búsquedas, validaciones de formularios.
+ */
 test.describe.serial("Suite P1", () => {
   let user: AEUser;
 

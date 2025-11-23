@@ -1,6 +1,10 @@
 import { Locator, Page } from "@playwright/test";
 import { waitPageStable, waitVisible } from "../helpers/utils/wait.helper";
 
+/**
+ * Página de detalle de producto: información, cantidad,
+ * agregar al carrito y envío de reviews.
+ */
 export class ProductDetailPage {
   readonly page: Page;
 
@@ -33,28 +37,40 @@ export class ProductDetailPage {
     this.productDetailLinkSelector = "a[href*='product_details']";
   }
 
+  /**
+   * Espera a que la información del producto esté visible.
+   */
   async productInformation() {
     await waitVisible(this.page, this.productInfo);
     await waitPageStable(this.page);
   }
 
+  /**
+   * Define la cantidad en el campo de cantidad del producto.
+   */
   async setQuantity(qty: number) {
     await waitVisible(this.page, this.quantityInput);
     await this.quantityInput.fill(qty.toString());
   }
 
+  /**
+   * Agrega el producto al carrito.
+   */
   async addToCart() {
     await this.addToCartBtn.click();
     await waitPageStable(this.page);
   }
 
+  /**
+   * Abre el carrito desde el detalle del producto.
+   */
   async viewCart() {
     await this.viewCartBtn.click();
     await waitPageStable(this.page);
   }
 
   /**
-   * Abre el detalle de un producto usando su índice en la lista.
+   * Abre el detalle de un producto según su índice.
    */
   async openProductByIndex(index: number) {
     const product = this.productCards.nth(index);
@@ -64,10 +80,10 @@ export class ProductDetailPage {
   }
 
   /**
-   * Llena el formulario de review, lo envía y valida el mensaje de éxito.
+   * Envía un review del producto y valida que el mensaje de éxito aparezca.
    */
-  async submitReview(email: string) {
-    await this.nameInput.fill("Juan Escobedo");
+  async submitReview(name: string, email: string) {
+    await this.nameInput.fill(name);
     await this.emailInput.fill(email);
     await this.reviewTextarea.fill("Muy buen producto");
     await this.submitReviewButton.click();

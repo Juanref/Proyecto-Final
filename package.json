@@ -13,6 +13,7 @@
     "P0": "npx playwright test tests/P0.spec.ts --headed",
     "P1": "npx playwright test tests/P1.spec.ts --headed",
     "P2": "npx playwright test tests/P2.spec.ts --headed",
+    "Suites": "npx playwright test tests",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "lint:ci": "eslint . --max-warnings=0",
