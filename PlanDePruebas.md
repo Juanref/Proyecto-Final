@@ -96,10 +96,13 @@
 ---
 
 ## Estrategia de pruebas
-- End-to-end UI (Playwright)  
-- Colección de test scripts  
-- Manual para casos no automatizados  
-- No-funcional básico: medir tiempos de carga en endpoints clave, número máximo de solicitudes concurrentes, respuesta máxima aceptable, carga de productos en carrito
+
+**Enfoque general**
+Se aplicará un enfoque híbrido de pruebas:
+
+- **Pruebas End-to-End en UI** con Playwright para validar los flujos críticos del usuario.
+- **Pruebas de API** para validar lógica de negocio, mensajes de error y consistencia de datos.
+- **Pruebas exploratorias ligeras** para identificar comportamientos inesperados por tratarse de un entorno público no controlado.
 
 ---
 
