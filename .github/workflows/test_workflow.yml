@@ -51,8 +51,11 @@ jobs:
       # -------------------------
       # 3) Generar reporte Allure
       # -------------------------
+      - name: Install Allure Commandline
+        run: npm install -g allure-commandline --force
+
       - name: Generate Allure Report
-        run: npx allure generate ./allure-results --clean -o ./allure-report
+        run: allure generate ./allure-results --clean -o ./allure-report
 
       # -------------------------
       # 4) Subir artefactos
