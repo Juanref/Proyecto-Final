@@ -42,7 +42,7 @@ jobs:
       # -------------------------
       # 2) Ejecutar pruebas API
       # -------------------------
-      - name: Install Newman globally (required for tests)
+      - name: Install Newman globally
         run: npm install -g newman newman-reporter-allure
 
       - name: Run API Tests (Newman)
@@ -69,3 +69,14 @@ jobs:
             allure-report
             artifacts
           retention-days: 5
+      
+      # -------------------------
+      # 5) Publicar Allure en GitHub Pages
+      # -------------------------
+      - name: Deploy Allure to GitHub Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./allure-report
+          destination_dir: allure

@@ -3,16 +3,11 @@ node_modules/
 dist/
 
 #reportes
-coverage/
-test-result/
-artifacts/
+/allure-report/
+/allure-results/
+/artifacts/
 
 # Playwright
-/test-results/
-/playwright-report/
-/allure-report/
-/playwright-result/
-/allure-results/
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
