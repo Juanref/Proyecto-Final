@@ -1,0 +1,4 @@
+pm.test("Business responseCode is 405", function () {
+    const jsonData = pm.response.json();
+    pm.expect(jsonData.responseCode).to.eql(405);
+});

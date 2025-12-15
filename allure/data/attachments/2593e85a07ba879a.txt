@@ -1,0 +1,5 @@
+Mon Dec 15 2025 -> [START] ====== INICIO DEL TEST ======
+Mon Dec 15 2025 -> [INFO]  -> WEB-Automation | chromium
+⚠ ALERT DETECTED: Press OK to proceed!
+Mon Dec 15 2025 -> [INFO] Success! Your details have been submitted successfully.
+Mon Dec 15 2025 -> [END] === FIN DEL TEST ===

@@ -1,0 +1,11 @@
+pm.test("Business responseCode is 201", function () {
+    const jsonData = pm.response.json();
+    pm.expect(jsonData.responseCode).to.eql(201);
+});
+
+pm.test('User created', function () {
+    var json = pm.response.json();
+    pm.expect(json.message).to.eql('User created!');
+
+    pm.environment.set('createdUserEmail', pm.variables.get('emailDynamic'));
+});

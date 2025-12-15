@@ -1,0 +1,9 @@
+pm.test("Business responseCode is 400", function () {
+    const jsonData = pm.response.json();
+    pm.expect(jsonData.responseCode).to.eql(400);
+});
+
+pm.test('Message indicates missing parameters', function () {
+    var json = pm.response.json();
+    pm.expect(json.message).to.include('missing');
+});

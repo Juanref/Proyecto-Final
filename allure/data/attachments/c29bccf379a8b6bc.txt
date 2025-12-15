@@ -1,0 +1,4 @@
+Mon Dec 15 2025 -> [START] ====== INICIO DEL TEST ======
+Mon Dec 15 2025 -> [INFO]  -> WEB-Automation | chromium
+Mon Dec 15 2025 -> [INFO] Thank you for your review.
+Mon Dec 15 2025 -> [END] === FIN DEL TEST ===

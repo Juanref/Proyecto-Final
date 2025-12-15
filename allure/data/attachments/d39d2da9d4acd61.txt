@@ -1,0 +1,9 @@
+pm.test("Business responseCode is 200", function () {
+    const jsonData = pm.response.json();
+    pm.expect(jsonData.responseCode).to.eql(200);
+});
+
+pm.test('User detail exists', function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData.user).to.have.property('email', pm.environment.get('createdUserEmail'));
+});

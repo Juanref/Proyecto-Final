@@ -1,0 +1,9 @@
+pm.test("Business responseCode is 200", function () {
+    const jsonData = pm.response.json();
+    pm.expect(jsonData.responseCode).to.eql(200);
+});
+
+pm.test('Response has brands array', function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData.brands).to.be.an('array');
+});

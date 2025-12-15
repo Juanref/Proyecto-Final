@@ -1,0 +1,7 @@
+Mon Dec 15 2025 -> [START] ====== INICIO DEL TEST ======
+Mon Dec 15 2025 -> [INFO]  -> WEB-Automation | chromium
+Mon Dec 15 2025 -> [DEBUG] Dispositivo Actual: 
+ -> "WEB-Automation"
+Mon Dec 15 2025 -> [INFO] Your email or password is incorrect!
+Mon Dec 15 2025 -> [INFO] Email Address already exist!
+Mon Dec 15 2025 -> [END] === FIN DEL TEST ===

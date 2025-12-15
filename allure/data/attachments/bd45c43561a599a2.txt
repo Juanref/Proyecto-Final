@@ -1,0 +1,9 @@
+pm.test("Business responseCode is 200", function () {
+    const jsonData = pm.response.json();
+    pm.expect(jsonData.responseCode).to.eql(200);
+});
+
+pm.test('Account deleted', function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData.message).to.eql('Account deleted!');
+});

@@ -1,0 +1,15 @@
+pm.test("Business responseCode is 200", function () {
+    const jsonData = pm.response.json();
+    pm.expect(jsonData.responseCode).to.eql(200);
+});
+
+pm.test('Results array exists', function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData.products).to.be.an('array');
+});
+
+pm.test("Save product ID", function () {
+    var jsonData = pm.response.json();
+    var secondProductId = jsonData.products[1].id;
+    pm.environment.set("productId", secondProductId);
+});

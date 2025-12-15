@@ -1,0 +1,4 @@
+Mon Dec 15 2025 -> [START] ====== INICIO DEL TEST ======
+Mon Dec 15 2025 -> [INFO]  -> WEB-Automation | chromium
+Mon Dec 15 2025 -> [INFO] Cantidad de productos encontrados: 1
+Mon Dec 15 2025 -> [END] === FIN DEL TEST ===

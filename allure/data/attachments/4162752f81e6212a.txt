@@ -1,0 +1,9 @@
+pm.test("Business responseCode is 404", function () {
+    const jsonData = pm.response.json();
+    pm.expect(jsonData.responseCode).to.eql(404);
+});
+
+pm.test('Account not exists with email', function () {
+    var json = pm.response.json();
+    pm.expect(json.message).to.include('not found');
+});

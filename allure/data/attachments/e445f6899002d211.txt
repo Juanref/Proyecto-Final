@@ -1,0 +1,6 @@
+Mon Dec 15 2025 -> [START] ====== INICIO DEL TEST ======
+Mon Dec 15 2025 -> [INFO]  -> WEB-Automation | chromium
+Mon Dec 15 2025 -> [DEBUG] Dispositivo Actual: 
+ -> "chromium"
+Mon Dec 15 2025 -> [INFO] Account Created!
+Mon Dec 15 2025 -> [END] === FIN DEL TEST ===

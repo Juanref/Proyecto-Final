@@ -1,0 +1,7 @@
+// Generar timestamp actual
+const ts = Date.now();
+pm.environment.set("timestamp", ts);
+
+// Generar nombre y email dinámico con el timestamp
+pm.environment.set("nameDynamic", `jescobedof_${ts}`);
+pm.environment.set("emailDynamic", `jescobedof_${ts}@pw.local`);
