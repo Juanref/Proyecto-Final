@@ -1,0 +1,20 @@
+{
+    "Date": "Mon, 15 Dec 2025 21:47:49 GMT",
+    "Content-Type": "text/html; charset=utf-8",
+    "Transfer-Encoding": "chunked",
+    "Connection": "keep-alive",
+    "vary": "Cookie,Accept-Encoding",
+    "referrer-policy": "same-origin",
+    "x-frame-options": "DENY",
+    "x-content-type-options": "nosniff",
+    "x-powered-by": "Phusion Passenger(R) 6.0.27",
+    "Set-Cookie": "sessionid=tn9y2bbwue7m22ilb5c1tpko1tkuu1mi; expires=Mon, 29 Dec 2025 21:47:49 GMT; HttpOnly; Max-Age=1209600; Path=/; SameSite=Lax",
+    "status": "200 OK",
+    "Report-To": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=sBLU0qqDiZYvg9r0O2MJtb%2B1PytH5pjAaHPadif%2B5cYm4zaJUYGTcraT57hnmQfoRXbnIUbN3MbUD5FlfNLUZe6vksDFgi7XuaO1fnBNojPIvnnlmF0%3D\"}]}",
+    "Server": "cloudflare",
+    "cf-cache-status": "DYNAMIC",
+    "Nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+    "Content-Encoding": "br",
+    "CF-RAY": "9ae92441e965eacf-ORD",
+    "alt-svc": "h3=\":443\"; ma=86400"
+}

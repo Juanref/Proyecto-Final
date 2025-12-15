@@ -1,0 +1,12 @@
+{
+    "Content-Type": "application/json",
+    "User-Agent": "PostmanRuntime/7.39.1",
+    "Accept": "*/*",
+    "Cache-Control": "no-cache",
+    "Postman-Token": "337e20f4-9185-4123-91f9-4ae760b69d5b",
+    "Host": "automationexercise.com",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Connection": "keep-alive",
+    "Content-Length": "60",
+    "Cookie": "sessionid=tn9y2bbwue7m22ilb5c1tpko1tkuu1mi"
+}
