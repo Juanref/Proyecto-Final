@@ -35,8 +35,9 @@
 - Diseñar estrategia de pruebas
 - Automatizar 10 casos con Playwright
 - Automatizar 19 requests API
-- Reporte unificado (Allure/HTML)
-- Matriz de trazabilidad y 3–5 bugs
+- Reporte unificado (Allure)
+- Matriz de trazabilidad
+- Reporte de bugs
 
 ---
 
@@ -89,9 +90,9 @@
 ## Criterios de salida
 - Todas las pruebas P0 pasan en ejecución automatizada (100%)  
 - ≥ 80% de casos P1 pasan (o defectos aceptados con plan)  
-- Reporte consolidado (Allure/HTML)  
+- Reporte consolidado (Allure)  
 - Coverage mínimo: Web 10 automatizados y API 19 requests validados  
-- Lista de bugs con 3–5 reportes reproducibles (P0/P1 incluidos si aplican)
+- Reporte de bugs reproducibles (P0/P1 incluidos si aplican)
 
 ---
 
@@ -100,9 +101,9 @@
 **Enfoque general**
 Se aplicará un enfoque híbrido de pruebas:
 
-- **Pruebas End-to-End en UI** con Playwright para validar los flujos críticos del usuario.
-- **Pruebas de API** para validar lógica de negocio, mensajes de error y consistencia de datos.
-- **Pruebas exploratorias ligeras** para identificar comportamientos inesperados por tratarse de un entorno público no controlado.
+- **Pruebas exploratorias ligeras** para identificar comportamientos inesperados en un entorno público no controlado y apoyar el diseño de casos formales.
+- **Pruebas End-to-End en UI** con Playwright, para validar los flujos críticos del usuario.
+- **Pruebas de API** para validar lógica de negocio, contratos, mensajes de error y consistencia de datos.
 
 ---
 
@@ -114,7 +115,7 @@ Se aplicará un enfoque híbrido de pruebas:
 
 ---
 
-## Diseño de casos principales
+## Casos principales
 
 ### Casos Web
 
@@ -167,63 +168,63 @@ Se aplicará un enfoque híbrido de pruebas:
 
 ### Casos Web
 
-| ID RF | Descripción | ID Caso | Script sugerido | Resultado esperado | Estado | Prioridad |
+| ID RF | Descripción | ID Caso | Script | Resultado esperado | Estado | Prioridad |
 |-------|------------|---------|----------------|-----------------|--------|-----------|
-| RF-01 | Registro de usuario válido | CP-WEB-01 | P0.spec.ts | Se crea usuario nuevo. Se muestra "ACCOUNT CREATED!". Logout | Pendiente | **P0 🔴** |
-| RF-02 | Login válido y persistencia | CP-WEB-02 | P0.spec.ts | Acceso correcto. Se muestra "Logged in as" | Pendiente | **P0 🔴** |
-| RF-03 | Añadir producto al carrito desde el listado | CP-WEB-03 | P0.spec.ts | Popup "Added!" visible. Carrito muestra 1 item | Pendiente | **P0 🔴** |
-| RF-04 | Checkout exitoso | CP-WEB-04 | P0.spec.ts | Se llena formulario de pago/envío. Orden completada. "Order Placed Successfully" | Pendiente | **P0 🔴** |
-| RF-05 | Modificar cantidad de producto y validar total | CP-WEB-05 | P1.spec.ts | Cantidad actualizada (ej: 1 → 4). Total cambia correctamente | Pendiente | **P1 🟠** |
-| RF-06 | Búsqueda de productos | CP-WEB-06 | P1.spec.ts | Resultados visibles. Productos contienen el término buscado | Pendiente | **P1 🟠** |
-| RF-07 | Eliminar producto del carrito | CP-WEB-07 | P1.spec.ts | Producto eliminado. Carrito vacío o items restantes actualizados | Pendiente | **P1 🟠** |
-| RF-08 | Validaciones de formulario en login/registro | CP-WEB-08 | P1.spec.ts | Mensajes de error visibles. No permite continuar | Pendiente | **P1 🟠** |
-| RF-09 | Review a un producto | CP-WEB-09 | P2.spec.ts | Click en producto, llenar formulario y enviar review | Pendiente | **P2 🟢** |
-| RF-10 | Envío de formulario contáctanos | CP-WEB-10 | P2.spec.ts | Click en Contact Us, llenar formulario y enviar | Pendiente | **P2 🟢** |
+| RF-01 | Registro de usuario válido | WEB-P0-01 | P0.spec.ts | Se crea usuario nuevo. Se muestra "ACCOUNT CREATED!". Logout | Passed | **P0 🔴** |
+| RF-02 | Login válido y persistencia | WEB-P0-02 | P0.spec.ts | Acceso correcto. Se muestra "Logged in as" | Passed | **P0 🔴** |
+| RF-03 | Añadir producto al carrito desde el listado | WEB-P0-03 | P0.spec.ts | Popup "Added!" visible. Carrito muestra 1 item | Passed | **P0 🔴** |
+| RF-04 | Checkout exitoso | WEB-P0-04 | P0.spec.ts | Se llena formulario de pago/envío. Orden completada. "Order Placed Successfully" | Passed | **P0 🔴** |
+| RF-05 | Modificar cantidad de producto y validar total | WEB-P1-05 | P1.spec.ts | Cantidad actualizada (ej: 1 → 4). Total cambia correctamente | Passed | **P1 🟠** |
+| RF-06 | Búsqueda de productos | WEB-P1-06 | P1.spec.ts | Resultados visibles. Productos contienen el término buscado | Passed | **P1 🟠** |
+| RF-07 | Eliminar producto del carrito | WEB-P1-07 | P1.spec.ts | Producto eliminado. Carrito vacío o items restantes actualizados | Passed | **P1 🟠** |
+| RF-08 | Validaciones de formulario en login/registro | WEB-P1-08 | P1.spec.ts | Mensajes de error visibles. No permite continuar | Passed | **P1 🟠** |
+| RF-09 | Review a un producto | WEB-P2-09 | P2.spec.ts | Click en producto, llenar formulario y enviar review | Passed | **P2 🟢** |
+| RF-10 | Envío de formulario contáctanos | WEB-P2-10 | P2.spec.ts | Click en Contact Us, llenar formulario y enviar | Passed | **P2 🟢** |
 
 ### Casos API
 
-| ID RF | Descripción | ID Caso | Script sugerido | Resultado esperado | Estado | Prioridad |
+| ID RF | Descripción | ID Caso | Script | Resultado esperado | Estado | Prioridad |
 |-------|------------|---------|----------------|-----------------|--------|-----------|
-| RF-11 | POST createAccount válido | CP-API-01 | TC_API_POST_CreateAccount_Valid | 201 + mensaje indicando usuario creado | Pendiente | **P0 🔴** |
-| RF-12 | POST verifyLogin válido | CP-API-02 | TC_API_POST_VerifyLogin_Valid | 200 + mensaje indicando usuario existe | Pendiente | **P0 🔴** |
-| RF-13 | GET user detail válido | CP-API-03 | TC_API_GET_UserDetail_Valid | 200 + JSON con datos exactos del usuario | Pendiente | **P0 🔴** |
-| RF-14 | DELETE account válido | CP-API-04 | TC_API_DELETE_Account_Valid | 200 + mensaje indicando cuenta borrada | Pendiente | **P0 🔴** |
-| RF-15 | GET productos → 200 | CP-API-05 | TC_API_GET_ProductsList_200 | 200 + lista de productos | Pendiente | **P0 🔴** |
-| RF-16 | POST searchProduct válido | CP-API-06 | TC_API_POST_SearchProduct_Valid | 200 + lista de productos con el nombre en la categoría | Pendiente | **P0 🔴** |
-| RF-17 | GET addProductToCart | CP-API-07 | TC_API_GET_addProductToCart | 200 + mensaje indicando agregado al carrito | Pendiente | **P0 🔴** |
-| RF-18 | POST productosList → 405 | CP-API-08 | TC_API_POST_ProductsList_405 | 405 + mensaje indicando método request no soportado | Pendiente | **P1 🟠** |
-| RF-19 | GET brandsList → 200 | CP-API-09 | TC_API_GET_BrandsList_200 | 200 + lista de brands | Pendiente | **P1 🟠** |
-| RF-20 | PUT brandsList → 405 | CP-API-10 | TC_API_PUT_BrandsList_405 | 405 + mensaje indicando método request no soportado | Pendiente | **P1 🟠** |
-| RF-21 | POST createAccount missing fields | CP-API-11 | TC_API_POST_CreateAccount_MissingFields | 400 + mensaje indicando campo que falta | Pendiente | **P1 🟠** |
-| RF-22 | POST verifyLogin credenciales inválidas | CP-API-12 | TC_API_POST_VerifyLogin_InvalidCreds | 404 + mensaje indicando usuario no encontrado | Pendiente | **P1 🟠** |
-| RF-23 | POST verifyLogin sin email | CP-API-13 | TC_API_POST_VerifyLogin_MissingEmail | 400 + mensaje indicando campo que falta | Pendiente | **P1 🟠** |
-| RF-24 | DELETE verifyLogin → 405 | CP-API-14 | TC_API_DELETE_VerifyLogin_405 | 405 + mensaje indicando método request no soportado | Pendiente | **P1 🟠** |
-| RF-25 | DELETE account credenciales incorrectas | CP-API-15 | TC_API_DELETE_Account_InvalidCreds | 404 + mensaje indicando cuenta no encontrada | Pendiente | **P1 🟠** |
-| RF-26 | GET user detail email no existente | CP-API-16 | TC_API_GET_UserDetail_NotFound | 404 + mensaje indicando cuenta no encontrada con el email usado | Pendiente | **P1 🟠** |
-| RF-27 | POST searchProduct → 405 | CP-API-17 | TC_API_POST_SearchProduct_405 | 405 + mensaje indicando método request no soportado | Pendiente | **P2 🟢** |
-| RF-28 | PUT updateAccount usuario no existe → 404 | CP-API-18 | TC_API_PUT_UpdateAccount_UserNotFound | 404 + mensaje indicando cuenta no encontrada | Pendiente | **P2 🟢** |
-| RF-29 | POST createAccount body vacío → 400 | CP-API-19 | TC_API_POST_CreateAccount_EmptyBody | 400 + mensaje indicando campo que falta | Pendiente | **P2 🟢** |
+| RF-11 | POST createAccount válido | API-P0-01 | TC_API_POST_CreateAccount_Valid | 201 + mensaje indicando usuario creado | Passed | **P0 🔴** |
+| RF-12 | POST verifyLogin válido | API-P0-02 | TC_API_POST_VerifyLogin_Valid | 200 + mensaje indicando usuario existe | Passed | **P0 🔴** |
+| RF-13 | GET user detail válido | API-P0-03 | TC_API_GET_UserDetail_Valid | 200 + JSON con datos exactos del usuario | Passed | **P0 🔴** |
+| RF-14 | DELETE account válido | API-P0-04 | TC_API_DELETE_Account_Valid | 200 + mensaje indicando cuenta borrada | Passed | **P0 🔴** |
+| RF-15 | GET productos → 200 | API-P0-05 | TC_API_GET_ProductsList_200 | 200 + lista de productos | Passed | **P0 🔴** |
+| RF-16 | POST searchProduct válido | API-P0-06 | TC_API_POST_SearchProduct_Valid | 200 + lista de productos con el nombre en la categoría | Passed | **P0 🔴** |
+| RF-17 | GET addProductToCart | API-P0-07 | TC_API_GET_addProductToCart | 200 + mensaje indicando agregado al carrito | Passed | **P0 🔴** |
+| RF-18 | POST productosList → 405 | API-P1-08 | TC_API_POST_ProductsList_405 | 405 + mensaje indicando método request no soportado | Passed | **P1 🟠** |
+| RF-19 | GET brandsList → 200 | API-P1-09 | TC_API_GET_BrandsList_200 | 200 + lista de brands | Passed | **P1 🟠** |
+| RF-20 | PUT brandsList → 405 | API-P1-10 | TC_API_PUT_BrandsList_405 | 405 + mensaje indicando método request no soportado | Passed | **P1 🟠** |
+| RF-21 | POST createAccount missing fields | API-P1-11 | TC_API_POST_CreateAccount_MissingFields | 400 + mensaje indicando campo que falta | Passed | **P1 🟠** |
+| RF-22 | POST verifyLogin credenciales inválidas | API-P1-12 | TC_API_POST_VerifyLogin_InvalidCreds | 404 + mensaje indicando usuario no encontrado | Passed | **P1 🟠** |
+| RF-23 | POST verifyLogin sin email | API-P1-13 | TC_API_POST_VerifyLogin_MissingEmail | 400 + mensaje indicando campo que falta | Passed | **P1 🟠** |
+| RF-24 | DELETE verifyLogin → 405 | API-P1-14 | TC_API_DELETE_VerifyLogin_405 | 405 + mensaje indicando método request no soportado | Passed | **P1 🟠** |
+| RF-25 | DELETE account credenciales incorrectas | API-P1-15 | TC_API_DELETE_Account_InvalidCreds | 404 + mensaje indicando cuenta no encontrada | Passed | **P1 🟠** |
+| RF-26 | GET user detail email no existente | API-P1-16 | TC_API_GET_UserDetail_NotFound | 404 + mensaje indicando cuenta no encontrada con el email usado | Passed | **P1 🟠** |
+| RF-27 | POST searchProduct → 405 | API-P2-17 | TC_API_POST_SearchProduct_405 | 405 + mensaje indicando método request no soportado | Passed | **P2 🟢** |
+| RF-28 | PUT updateAccount usuario no existe → 404 | API-P2-18 | TC_API_PUT_UpdateAccount_UserNotFound | 404 + mensaje indicando cuenta no encontrada | Passed | **P2 🟢** |
+| RF-29 | POST createAccount body vacío → 400 | API-P2-19 | TC_API_POST_CreateAccount_EmptyBody | 400 + mensaje indicando campo que falta | Passed | **P2 🟢** |
 
 ---
 
 ## Herramientas
-- **Web automation:** Playwright (POM’s, helpers, tests)  
+- **Web automation:** Playwright. 
 - **API automation:** Postman + Newman  
-- **Reportes:** HTML reporter nativo  
-- **CI:** GitHub (npm run)  
+- **Reportes:** Allure  
+- **CI:** GitHub  
 - **Repositorio:** estructura sugerida abajo
 
 ---
 
 ## Estructura del proyecto
-/tests
-  /web
-  /apis
-/pages
-/helpers/utils
+/allure-report
 /auth
 /data
-/allure-report
+/helpers/utils
+/pages
+/tests
+   /web
+   /apis
 
 ---
 
@@ -236,8 +237,7 @@ Se aplicará un enfoque híbrido de pruebas:
 
 ## Entregables
 - Plan de pruebas (MD + PDF)  
-- Suites automatizadas en /tests
-- Postman collection / scripts API  
-- Reporte unificado (Allure/HTML) + carpeta allure-reports  
-- Bugs (3–5) en formato: título, steps, datos, esperado/real, severidad  
+- Suites automatizadas (web y apis).
+- Reporte unificado (Allure)
+- Informe de bugs. 
 - README con instrucciones de ejecución
