@@ -7,7 +7,7 @@ on:
     branches: ["xplearn/jescobedof"]
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: ci-${{ github.ref }}
