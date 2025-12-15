@@ -1,0 +1,8 @@
+Mon Dec 15 2025 -> [START] ====== INICIO DEL TEST ======
+Mon Dec 15 2025 -> [INFO]  -> WEB-Automation | chromium
+Mon Dec 15 2025 -> [DEBUG] Dispositivo Actual: 
+ -> "chromium"
+Mon Dec 15 2025 -> [INFO] Logged in as jescobedof_1765758299764
+Mon Dec 15 2025 -> [STEP] Guardando sesión en /home/runner/work/Proyecto-Final/Proyecto-Final/auth/chromium.session.json
+Mon Dec 15 2025 -> [STEP] Guardando información del usuario en /home/runner/work/Proyecto-Final/Proyecto-Final/data/chromium.user.json
+Mon Dec 15 2025 -> [END] === FIN DEL TEST ===

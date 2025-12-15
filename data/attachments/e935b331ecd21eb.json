@@ -1,0 +1,11 @@
+{
+    "Authorization": "Bearer {{token}}",
+    "User-Agent": "PostmanRuntime/7.39.1",
+    "Accept": "*/*",
+    "Cache-Control": "no-cache",
+    "Postman-Token": "06e107af-e34f-4857-afae-d1ba01cf686f",
+    "Host": "automationexercise.com",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Connection": "keep-alive",
+    "Content-Length": "57"
+}
